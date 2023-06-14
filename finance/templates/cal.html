@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wealth Calculator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+ #container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#left {
+  flex-basis: 50%;
+  padding: 20px;
+  margin-left: 250px ;
+  margin-top: 150px;
+}
+
+#right {
+  flex-basis: 50%;
+  margin-right: 250px;
+  
+}
+
+input[type="number"], input[type="range"], button {
+  margin: 10px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+  <div id="container">
+    <div id="left">
+      <h1>Wealth Calculator</h1>
+      <label>How much will you be saving each month?</label>
+      <input type="number" id="monthly-savings" value="0">
+      <br>
+      <label>Do you have a lump sum? If so enter it here:</label>
+      <input type="number" id="lump-sum" value="0">
+      <br>
+      <label>Time (years)</label>
+      <input type="number" id="years" value="10">
+      <br>
+      <label>Annual Interest Rate:</label>
+      <input type="range" id="interest-rate" min="1" max="30" step="1" ><br>
+      <label for="range-value" id="interest-rate-value">Annual Rate: </label>
+      <label id=""></label>
+      <br>
+      <button onclick="calculate()">Calculate</button>
+      <br>
+    </div>
+    <div id="right">
+      <canvas id="wealth-chart"></canvas>
+    </div>
+  </div>
+  <div id="worth"></div>
+
+  <script>
+    const interestRateInput = document.getElementById('interest-rate');
+const interestRateValue = document.getElementById('interest-rate-value');
+
+interestRateInput.addEventListener('input', () => {
+  interestRateValue.textContent = interestRateInput.value;
+});
+
+    function calculate() {
+      const monthlySavings = parseFloat(document.getElementById("monthly-savings").value);
+      const lumpSum = parseFloat(document.getElementById("lump-sum").value);
+      const years = parseFloat(document.getElementById("years").value);
+      const annualInterestRate = parseFloat(document.getElementById("interest-rate").value);
+      let initialInvestment = lumpSum;
+      let wealth = initialInvestment;
+      const data = [];
+      const dataInvestment = [];
+      let totalInvestment = initialInvestment;
+      for (let i = 0; i <= years; i++) {
+        wealth += monthlySavings * 12;
+        totalInvestment += monthlySavings * 12;
+        data.push(wealth);
+        dataInvestment.push(totalInvestment);
+        wealth *= (1 + annualInterestRate);
+      }
+
+      const ctx = document.getElementById('wealth-chart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: Array.from(Array(years + 1), (_, i) => i.toString()),
+          datasets: [{
+            label: 'Investment Worth',
+            data: data,
+            borderColor: 'blue',
+            fill: false
+          },
+          {
+            label: 'Amount Invested',
+            data: dataInvestment,
+            borderColor: 'red',
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+      const worthElement = document.getElementById('worth');
+worthElement.innerHTML = '₹' + data[years].toLocaleString(undefined, {
+maximumFractionDigits: 2,
+}) + '<br>' + '₹' + totalInvestment.toLocaleString(undefined, {
+maximumFractionDigits: 2,
+}) + ' invested across ' + years + ' years' + '<br>' + 'Assuming returns at ' + (annualInterestRate).toFixed(2) + '% p.a.';
+}
+</script>
+
+</body>
+</html>
+{%  endblock %}

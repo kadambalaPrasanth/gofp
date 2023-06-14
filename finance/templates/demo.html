@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Centered Div with Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .subdivision {
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      width: 80%;
+      max-width: 800px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .left {
+      width: 48%;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input[type="text"],
+    input[type="password"] {
+      border-radius: 5px;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+    }
+    input[type="submit"] {
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0d8bf3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="subdivision">
+      <div class="left">
+        <h2>Left Sub-Division</h2>
+        <img src="https://www.shutterstock.com/image-photo/hand-man-doing-finances-calculate-260nw-591470369.jpg" alt="image">
+      </div>
+      <div class="right">
+        <h2>Right Sub-Division</h2>
+        <form method="POST">
+          <input name="username" type="text" placeholder="Username">
+          <input name="password" type="password" placeholder="Password">
+          <input type="submit" value="Login">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

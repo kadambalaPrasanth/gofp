@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Portfolio</title>
+	<style>
+				 body {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			background-color: #f7f7f7;
+			color: #333;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+			font-size: 32px;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
+
+		h2 {
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 30px;
+			font-size: 24px;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		table {
+			border-collapse: collapse;
+			margin: auto;
+			text-align: center;
+			width: 80%;
+			max-width: 1000px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+		}
+
+		th, td {
+			padding: 10px;
+			border: 1px solid #ddd;
+		}
+
+		th {
+			font-weight: bold;
+			background-color: #f2f2f2;
+		}
+
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-top: 50px;
+		}
+
+		.container > * {
+			margin: 10px;
+			flex-basis: 300px;
+			background-color: #fff;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+			padding: 20px;
+			text-align: center;
+			border-radius: 5px;
+		}
+
+		form {
+			margin: 50px auto;
+			text-align: center;
+		}
+
+		form input[type="number"] {
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			margin-right: 10px;
+			width: 300px;
+			font-size: 16px;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+		}
+
+		form input[type="submit"] {
+			padding: 10px 20px;
+			border: none;
+			background-color: #007bff;
+			color: #fff;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		form input[type="submit"]:hover {
+			background-color: #0069d9;
+		}
+
+		canvas {
+			max-width: 100%;
+			height: auto;
+			display: block;
+			margin: auto;
+			margin-top: 50px;
+			max-height: 400px;
+		}
+		.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container > div {
+  flex: 1 1 300px;
+  margin: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+	</style>
+    
+</head>
+<body>
+	<section>
+		<h1>Portfolio</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Schema Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in portfolios %}
+        <tr>
+          <td>{{ p.schema_name }}</td>
+          <td>{{ p.qnt }}</td>
+          <td>{{ p.price }}</td>
+          <td>{{ p.category }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+	<canvas id="chart"></canvas>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		const data = {
+		labels: {% autoescape off %}[{% for p in portfolios %}"{{ p.category }}",{% endfor %}]{% endautoescape %},
+		datasets: [{
+			label: 'Portfolio by Category',
+			data: {% autoescape off %}[{% for p in portfolios %}{{ p.qnt }},{% endfor %}]{% endautoescape %},
+			backgroundColor: [
+			'#ff6384',
+			'#36a2eb',
+			'#cc65fe',
+			'#ffce56',
+			'#8ec7cc',
+			]
+		}]
+		};
+		const config = {
+		type: 'pie',
+		data: data,
+		};
+		const chart = new Chart(document.getElementById('chart'), config);
+	</script>
+	</section>
+	<h1>Build your portfolio</h1>
+       
+        
+	<div class="container">
+		<div onclick="this.classList.toggle('open')">
+			<h2>Large Cap Funds</h2>
+			<table>
+                
+			    <th>Name</th>
+			    <th>1 year return</th>
+			    <th>3 years returns</th>
+			    <th>Price</th>
+                <td>Add</td>
+			    {% for i in large_cdata %}
+			    <tr>
+                    
+			        <td>{{ i.1 }}</td>
+			        <td>{{ i.7 }}</td>
+			        <td>{{ i.8 }}</td>
+			        <td>{{ i.2  }}</td>
+                    <td>
+						<form method="post">
+							{% csrf_token %}
+                        <input type="text" hidden value="{{i.1}}" name="Name">
+						<input type="number" hidden value="{{i.2}}" name="Price">
+                        <input type="number" placeholder="qnt" name="qnt" required>
+						<input type="text" value="Large Cap" hidden name='type'>
+						<input type="number" min="0" placeholder="Enter your Investment in Rs." name="amount" required>
+                        <input type="submit" value="add">
+					</form>
+                    </td> 
+			    </tr>
+			    {% endfor %}
+			</table>
+		</div>
+		<div >
+			<h2>Mid Cap Funds</h2>
+			<table>
+			    <th>Name</th>
+			    <th>1 year return</th>
+			    <th>3 years returns</th>
+			    <th>Price</th>
+                <th>Add</th>
+                
+			    {% for i in mid_cdata %}
+			    <tr>
+			        <td>{{ i.1 }}</td>
+			        <td>{{ i.7 }}</td>
+			        <td>{{ i.8 }}</td>
+			        <td>{{i.2}}</td>
+                    <td>
+                        <form method="post">
+							{% csrf_token %}
+							<input type="text" hidden value="{{i.1}}" name="Name">
+							<input type="number" hidden value="{{i.2}}" name="Price">
+							<input type="number" placeholder="qnt" name="qnt" required>
+							<input type="text" value="Mid Cap" hidden name='type'>
+							<input type="number" min="0" placeholder="Enter your Investment in Rs." name="amount" required>
+							<input type="submit" value="add">
+						</form>
+                    </td>
+			    </tr>
+			    {% endfor %}
+			</table>
+		</div>
+		<div >
+			<h2>Small Cap Funds</h2>
+			<table>
+			    <th>Name</th>
+			    <th>1 year return</th>
+			    <th>3 years returns</th>
+			    <th>Price</th>
+                <th>Add</th>
+			    {% for i in small_cdata %}
+			    <tr>
+			        <td>{{ i.1 }}</td>
+			        <td>{{ i.7 }}</td>
+			        <td>{{ i.8 }}</td>
+			        <td>{{i.2}}</td>
+					<td>
+                    <form method="post">
+						{% csrf_token %}
+                        <input type="text" hidden value="{{i.1}}" name="Name">
+						<input type="number" hidden value="{{i.2}}" name="Price">
+                        <input type="number" placeholder="qnt" name="qnt" required>
+						<input type="text" value="Small Cap" hidden name='type'>
+						<input type="number" min="0" placeholder="Enter your Investment in Rs." name="amount" required>
+                        <input type="submit" value="add">
+					</form>
+				</td>
+			    </tr>
+			    {% endfor %}
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>
+ {% endblock %}

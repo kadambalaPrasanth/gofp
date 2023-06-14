@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+
+  table {
+    border-collapse: separate;
+    border-spacing: 20px;
+    /* adds spacing between tiles */
+  }
+
+  .service-tile {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    /* adds shadow effect */
+    transition: all 0.3s ease-in-out;
+    /* adds transition effect */
+  }
+
+  .service-tile:hover {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    /* raises and intensifies the shadow effect */
+    transform: translateY(-5px);
+    /* lifts the tile up */
+  }
+
+  .service-tile::after {
+    content: attr(data-name);
+    /* displays the name in the bottom right corner of the tile */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.2em;
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* adds shadow effect to the name */
+  }
+  table{
+    width: 100%;
+    border: 1px solid;
+  }
+</style>
+
+
+
+<main>
+  <table class="main-table">
+    <tr>
+      <td>
+        <marquee><h3>We offer Goal planning services to our customers based on users profile, income levels using our Fin
+          calculator that shows a systematic approach in saving and investment decisons.</h3></marquee>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div
+          style="background-size: 80% ;margin-top: -100px ;background-repeat:no-repeat;height:700px;background-position: center center;background-image: url('https://i.pinimg.com/originals/ed/a3/67/eda367383014a0bb46993e8c26be42aa.gif');">
+          <div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <center>
+          <h2>Choose your goals</h2>
+          <table class="goals-table">
+            <tr>
+              <td class="service-tile"
+                style="background-image: url('https://cdn.dribbble.com/users/967990/screenshots/3687586/kiwi_gif_dribble.gif');">
+                Travelling</td>
+              <td class="service-tile"
+                style="background-image: url('https://cdn.dribbble.com/users/380540/screenshots/1839687/retro-gif.gif');">
+                Gadgets</td>
+              <td class="service-tile"
+                style="background-image: url('https://i.pinimg.com/originals/51/10/12/511012fa1cfe9efa408b0c26bf30795d.gif');">
+                Emergency</td>
+            </tr>
+            <tr>
+              <td class="service-tile"
+                style=" background-image: url('https://static01.nyt.com/images/2018/01/28/fashion/28NOWEDPARTY/28NOWEDPARTY-master768.gif');">
+                Events</td>
+              <td class="service-tile"
+                style="background-image: url('https://cdn.dribbble.com/users/260312/screenshots/2444745/car-animation.gif');">
+                Automobiles</td>
+              <td class="service-tile"
+                style="background-image: url('https://img.washingtonpost.com/news/get-there/wp-content/uploads/sites/37/2016/08/0819_cash2_ss.gif');">
+                Investments</td>
+            </tr>
+            <tr>
+              <td class="service-tile"
+                style="background-image: url('https://media1.giphy.com/media/UqqVRaP8y4uo1GNxbN/giphy.gif');">
+                Asset Purchases</td>
+              <td class="service-tile"
+                style="background-image: url('https://media.giphy.com/media/jhOml5tdAv6xj0Wmow/giphy.gif');">
+                Higher Studies</td>
+              <td class="service-tile"
+                style="background-image: url('https://cdn.dribbble.com/users/1286958/screenshots/3742751/babka.gif');">
+                Retirement</td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+</main>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
+{% endblock %}

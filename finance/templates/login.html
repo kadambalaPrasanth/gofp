@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+
+
+  .main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  background-image: url( "https://th.bing.com/th/id/OIP.4QZiTh9Tv3_K5ZMFOPu4owHaHa?pid=ImgDet&rs=1");
+
+}
+
+.contents {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 50px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.text p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.text i {
+  font-style: normal;
+  color: #007aff;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.input-box table {
+  width: 100%;
+}
+
+.input-box td:first-child {
+  width: 50%;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+
+.header {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"] {
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  background-color: #007aff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.signin {
+  margin-top: 10px;
+}
+
+.signin a {
+  color: #007aff;
+}
+
+.welcome-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+
+
+</style>
+<div class="main">
+  <div class="contents">
+    <div class="text">
+      <p>Join the Invest to Spend moment <i>#GOFP</i></p>
+    </div>
+    <div class="input-box">
+      <center>
+      <table>
+        <tr>
+          <td>
+            <header>Create account</header>
+            <form method="POST" class="container">
+              {% csrf_token %}
+              <input name="username" type="text" placeholder="Username" required>
+              <input name="password" type="password" placeholder="Password">
+              <input type="submit" value="Login">
+            </form>
+            <div class="signin">
+              <span>Don't have an account? <a href="#">Register here</a></span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <img src="{% static 'welcome.gif' %}" class="welcome-img" alt="">
+            </div>
+          </td>
+        </tr>
+      </table></center>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

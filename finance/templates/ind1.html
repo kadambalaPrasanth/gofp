@@ -1,0 +1,59 @@
+<style>
+  .container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5);
+  margin-top: 200px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+
+input[type="text"],
+input[type="password"] {
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+input[type="submit"] {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #0d8bf3;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+</style>
+<div class="container">
+  <div class="left">
+    
+  </div>
+  <div>
+  <form method="POST">
+    {% csrf_token %}
+    <input name="username" type="text" placeholder="Username">
+    <input name="password" type="password" placeholder="Password">
+    <input type="submit" value="Login">
+  </form>
+   </div>
+</div>
